@@ -9,7 +9,7 @@ import {
 import { Circle, CircleCheckBig, Trash2 } from "lucide-react";
 import { ITodo } from "../types";
 import { Todo as TodoType } from "../../../types";
-// import useUpdateTodo from "../../../hooks/useUpdateTodo.js";
+import useUpdateTodo from "../../../hooks/useUpdateTodo.js";
 
 const Todo = ({
   todo,
@@ -17,12 +17,12 @@ const Todo = ({
   setTodoToDelete,
   handleOpenDeleteDialog,
 }: ITodo) => {
-  const { _id, title, description, isCompleted } = todo;
+  const { title, description, isCompleted } = todo;
 
-  //   const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
+  const { updateTodo, isUpdatingTodo } = useUpdateTodo(setTodos);
 
   const handleUpdate = async (todo: TodoType) => {
-    //   await updateTodo(todo);
+    await updateTodo(todo);
   };
 
   const handleDelete = async (todo: TodoType) => {
@@ -31,7 +31,7 @@ const Todo = ({
   };
 
   return (
-    <Card sx={{ maxWidth: 250 }}>
+    <Card sx={{ width: 250 }}>
       <Stack justifyContent={"space-between"} boxSizing={"border-box"}>
         <CardContent
           sx={{
@@ -67,7 +67,7 @@ const Todo = ({
           <LoadingButton
             size="medium"
             variant="contained"
-            // loading={isUpdatingTodo}
+            loading={isUpdatingTodo}
             onClick={() => handleUpdate(todo)}
           >
             {isCompleted ? "Undo" : "Mark as Done"}
