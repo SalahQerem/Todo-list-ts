@@ -9,10 +9,10 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
-//   import useDeleteTodo from "../../hooks/useDeleteTodo.js";
+import useDeleteTodo from "../../hooks/useDeleteTodo.js";
 import useGetTodos from "../../hooks/useGetTodos.js";
 import AddTodoForm from "../AddTodoForm";
-//   import DeleteConfirmationDialog from "../Dialogs/DeleteConfirmationDialog.jsx";
+import DeleteConfirmationDialog from "../Dialogs/DeleteConfirmationDialog.jsx";
 import Loader from "../Loader";
 import Todo from "./components/Todo.jsx";
 import { defaultTodo } from "../../utils/index.js";
@@ -32,7 +32,7 @@ const Todos = () => {
     setNumOfPages,
     setPage
   );
-  //   const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
+  const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
 
   const handlePageChange = (_: ChangeEvent<unknown>, page: number) => {
     setPage(page);
@@ -46,8 +46,8 @@ const Todos = () => {
   };
 
   const handleDeleteTodo = async () => {
-    // const status = await deleteTodo(todoToDelete._id);
-    // if (status) setOpenCancelDialog(false);
+    const status = await deleteTodo(todoToDelete._id);
+    if (status) setOpenCancelDialog(false);
   };
 
   const handleCancelDeleteTodo = () => {
@@ -152,14 +152,14 @@ const Todos = () => {
           onChange={handlePageChange}
         />
       </Box>
-      {/* <DeleteConfirmationDialog
+      <DeleteConfirmationDialog
         openCancelDialog={openCancelDialog}
         todoToDeleteTitle={todoToDelete.title}
         isDeletingTodo={isDeletingTodo}
         handleCancelDeleteTodo={handleCancelDeleteTodo}
         handleDeleteTodo={handleDeleteTodo}
         handleClose={handleClose}
-      /> */}
+      />
     </Box>
   );
 };
