@@ -1,26 +1,26 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
-// import useAddTodo from "../../hooks/useAddTodo.js";
+import useAddTodo from "../../hooks/useAddTodo.js";
 import { defaultTodo } from "../../utils/index.js";
 import { IAddTodoForm } from "./types.js";
 import { Todo } from "../../types/index.js";
 
 const AddTodoForm = ({ fetchTodos, page, limit }: IAddTodoForm) => {
   let [newTodo, setNewTodo] = useState<Todo>(defaultTodo);
-  //   const { addTodo, isAddingTodo } = useAddTodo(
-  //     fetchTodos,
-  //     page,
-  //     limit,
-  //     setNewTodo
-  //   );
+  const { addTodo, isAddingTodo } = useAddTodo(
+    fetchTodos,
+    setNewTodo,
+    page,
+    limit
+  );
 
   let isValidateInputs: boolean =
     newTodo.title.length < 10 || newTodo.description.length < 15;
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // await addTodo({ ...newTodo });
+    await addTodo({ ...newTodo });
   };
 
   return (
@@ -76,7 +76,7 @@ const AddTodoForm = ({ fetchTodos, page, limit }: IAddTodoForm) => {
         }}
       />
       <LoadingButton
-        // loading={isAddingTodo}
+        loading={isAddingTodo}
         variant="contained"
         size="large"
         type="submit"

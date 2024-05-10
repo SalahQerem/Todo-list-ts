@@ -8,7 +8,7 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 //   import useDeleteTodo from "../../hooks/useDeleteTodo.js";
 import useGetTodos from "../../hooks/useGetTodos.js";
 import AddTodoForm from "../AddTodoForm";
@@ -34,14 +34,13 @@ const Todos = () => {
   );
   //   const { deleteTodo, isDeletingTodo } = useDeleteTodo(fetchTodos, page, limit);
 
-  const handlePageChange = (event: ChangeEvent<unknown>, page: number) => {
+  const handlePageChange = (_: ChangeEvent<unknown>, page: number) => {
     setPage(page);
     fetchTodos(page, limit);
   };
 
   const handleLimitChange = (event: SelectChangeEvent<number>) => {
-    // const limit = props.value;
-    const limit = 5;
+    const limit = event.target.value as number;
     setLimit(limit);
     fetchTodos(page, limit);
   };
